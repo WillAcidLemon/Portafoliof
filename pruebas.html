@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pruebas JS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 750px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .carousel {
+      display: flex;
+      justify-content: center;
+    }
+
+    .carousel img {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .carousel img.active {
+      display: block;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 2em;
+      padding: 0.3em 0.5em;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+      margin: 2em;
+    }
+
+    .gallery img {
+      width: 250px;
+      border-radius: 12px;
+    }
+
+    section {
+      padding: 2em;
+    }
+
+    canvas {
+      max-width: 600px;
+      margin: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pruebas JS</h1>
+  </header>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="pruebas.html">Pruebas JS</a>
+    <a href="blog.html">Blog: Innovatic</a>
+    <a href="quien.html">¿Quién soy?</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+  <main>
+    <section id="carousel-genero">
+      <h2>Carrusel de Género</h2>
+      <div class="carousel-container">
+        <div class="carousel">
+          <img class="active" src="https://www.gob.mx/cms/uploads/article/main_image/74505/perspectiva-genero-redes.jpg" alt="Género 1" />
+          <img src="https://tvazteca.brightspotcdn.com/dims4/default/d9ea3f3/2147483647/strip/true/crop/755x755+223+0/resize/720x720!/format/webp/quality/90/?url=http%3A%2F%2Ftv-azteca-brightspot.s3.amazonaws.com%2F9b%2F65%2F63ca31b743ddb1690702d6287f63%2Fentendiendo-el-genero-y-la-sexualidad.jpg" alt="Género 2" />
+          <img src="https://www.uv.mx/uge/files/2023/09/imagen_reglamento.png" alt="Género 3" />
+        </div>
+        <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
+      </div>
+    </section>
+
+    <section id="galeria-equidad">
+      <h2>Galería de Equidad de Género</h2>
+      <div class="gallery">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Aiga_toilets_inv.svg" alt="Equidad 1" />
+        <img src="https://www.ual.edu.mx/files/posts/content/0b48e9736e3f2.jpg" alt="Equidad 2" />
+        <img src="https://img.freepik.com/vector-gratis/concepto-identidad-genero_23-2148539311.jpg" alt="Equidad 3" />
+      </div>
+    </section>
+
+    <section id="grafica-desigualdad">
+      <h2>Gráfica de Barras - Desigualdad en Países</h2>
+      <canvas id="barChart"></canvas>
+      <script>
+        const ctx = document.getElementById('barChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['México', 'EE.UU.', 'India', 'Suecia', 'Brasil'],
+            datasets: [{
+              label: 'Índice de desigualdad (0-1)',
+              data: [0.45, 0.41, 0.50, 0.25, 0.53],
+              backgroundColor: '#71B1D9'
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 1
+              }
+            }
+          }
+        });
+      </script>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Portafolio Yaretzi Guadalupe Medina Ortega</p>
+  </footer>
+
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.carousel img');
+    const totalSlides = slides.length;
+
+    function moveSlide(step) {
+      slides[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + step + totalSlides) % totalSlides;
+      slides[currentIndex].classList.add('active');
+    }
+  </script>
+</body>
+</html>
